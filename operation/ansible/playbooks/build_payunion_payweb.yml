@@ -1,0 +1,15 @@
+# playbook.yml
+---
+- hosts: buildserver  # hosts中指定
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Checkout git code
+      git: repo=git@gitee.com:mixadx2018/payunion.git dest=/home/root/git/payunion version={{source_branch}} accept_hostkey=True
+
+    - name: Build docker image
+      command: docker build -t "registry.cn-hangzhou.aliyuncs.com/mixadx/payunion_payweb:{{target_version}}" -f /home/root/git/payunion/operation/dockerfiles/payunion_payweb/Dockerfile /home/root/git/payunion
+
+    - name: Push docker image
+      command: docker push "registry.cn-hangzhou.aliyuncs.com/mixadx/payunion_payweb:{{target_version}}"

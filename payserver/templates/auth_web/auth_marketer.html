@@ -1,0 +1,21 @@
+{% extends 'auth_web/auth_ok.html' %}
+
+{% load static %}
+
+{% block body %}
+    <div class="div">
+        <img src="https://ss1.mvpalpha.muchbo.com/payunion/96b25d88-6af5-4cb2-8fb3-742f020251f8.png">
+        <h2 class="status">{{ nickname }}<br />已成功授权<br />
+            <span>等待自动跳转到小程序完成注册</span></h2>
+    </div>
+{% endblock %}
+
+{% block script_head %}
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+{% endblock %}
+
+{% block script %}
+    <script>
+        wx.miniProgram.redirectTo({url: '../register/register'})
+    </script>
+{% endblock %}

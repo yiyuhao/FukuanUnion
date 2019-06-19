@@ -1,0 +1,20 @@
+# playbook.yml
+---
+- hosts: "{{target_server}}"  # hosts中指定
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: pull new docker image
+      command: docker pull "registry.cn-hangzhou.aliyuncs.com/mixadx/{{target_image}}:{{target_version}}"
+
+    - name: stop old containder
+      shell: docker exec $(docker ps | grep '{{killed_container}}' | awk 'END {print $NF}') supervisorctl stop all
+      ignore_errors: yes
+
+    - name: kill old containder
+      shell: docker ps -a | grep '{{killed_container}}' | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+      ignore_errors: yes
+
+    - name: run docker image
+      command: docker run -d -v {{docker_data_volume}}:/dockerdata --name={{target_image}}_{{target_version}} {{run_options}} "registry.cn-hangzhou.aliyuncs.com/mixadx/{{target_image}}:{{target_version}}"

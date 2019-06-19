@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scale=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+</head>
+<style type="text/css">
+
+    .div {
+        text-align: center;
+        position:absolute;
+        top:40%;
+        left:50%;
+        width: 76%;
+        -webkit-transform:translate(-50%,-50%);
+        -moz-transform:translate(-50%,-50%);
+        -ms-transform:translate(-50%,-50%);
+        -o-transform:translate(-50%,-50%);
+        transform:translate(-50%,-50%);
+    }
+    img {
+        width:.62rem;
+        height:.62rem;
+        border-radius: 5rem;
+    }
+    .status {
+        font-size: .22rem;
+        line-height: .3rem;
+        opacity: 0.75;
+    }
+    .info-h3 {
+        font-size: .17rem;
+        line-height: .27rem;
+        opacity: 0.42;
+        text-align: center;
+    }
+    ul {
+        text-align: left;
+        padding-left: .28rem;
+        font-size: .17rem;
+        opacity: 0.42;
+    }
+    h2 span {
+        font-size: .17rem;
+    }
+</style>
+<body>
+
+    {% block body %}
+
+        <div class="div">
+            {% if auth_type == 'bind_alipay_account' %}
+                <img src="https://ss-alpha.mishitu.com/payunion/e0806821-87db-4de8-8572-68aa5ba0adb1.png">
+            {% else %}
+                <img src="https://ss-alpha.mishitu.com/payunion/390e14b4-3f99-42ef-95ea-c717c6ad9316.png">
+            {% endif %}
+
+            {% if auth_type == "add_cashier" %}
+                <h2 class="status">已接受邀请!</h2>
+                <h3 class="info-h3">你已成为该店铺的收银员:</h3>
+                <ul>
+                    <li>你将收到该店铺的收款通知</li>
+                    <li>可以进入付款联盟小程序查看账单详情</li>
+                </ul>
+            {% elif auth_type == "create_merchant" %}
+                <h2 class="status">商户绑定成功</h2>
+            {% elif auth_type == "bind_alipay_account" %}
+                <h3 class="info-h3">{{ nick_name }}</h3>
+                <h3 class="info-h3">绑定支付宝账号成功:</h3>
+                <ul>
+                    <li>店铺收款可以可提现到您的支付宝账户</li>
+                </ul>
+            {% endif %}
+
+        </div>    
+    {% endblock %}
+</body>
+
+{% block script_head %}{% endblock %}
+<script>
+    var size = document.body.clientWidth*260/1000;
+    document.body.setAttribute('style', 'font-size:'+size+'px');
+    document.getElementsByTagName('html')[0].setAttribute('style', 'font-size:'+size+'px');
+</script>
+{% block script %}{% endblock %}
+
+</html>

@@ -1,0 +1,7 @@
+certbot certonly -w /opt/tmp \
+   -d api.mishitu.com \
+   -d admin.mishitu.com \
+   -d payweb.mishitu.com \
+   -d api-alpha.mishitu.com \
+   -d admin-alpha.mishitu.com \
+   -d payweb-alpha.mishitu.com

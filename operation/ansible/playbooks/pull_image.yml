@@ -1,0 +1,9 @@
+# playbook.yml
+---
+- hosts: "{{target_server}}"  # hosts中指定
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: pull new docker image
+      command: docker pull "registry.cn-hangzhou.aliyuncs.com/mixadx/{{target_image}}:{{target_version}}"
