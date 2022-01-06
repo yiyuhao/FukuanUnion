@@ -14,6 +14,6 @@ rsa==3.4.2
 channels==2.1.2
 https://github.com/twisted/twisted/archive/twisted-18.7.0.zip
 channels-redis==2.2.1
-celery==4.2.1
+celery==5.2.2
 requests==2.19.1
 requests-mock==1.5.2
